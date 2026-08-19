@@ -12,12 +12,20 @@
  *   DB_PASS   - password
  *   DB_SSL    - set to 1 to force TLS (required by TiDB Cloud Serverless)
  */
-$DB_HOST = getenv('DB_HOST') ?: 'localhost';
-$DB_PORT = getenv('DB_PORT') ?: '3306';
-$DB_NAME = getenv('DB_NAME') ?: 'hostel_agency';
-$DB_USER = getenv('DB_USER') ?: 'root';
-$DB_PASS = getenv('DB_PASS') ?: '';
-$DB_SSL  = getenv('DB_SSL') ?: '0';
+function env_value($name) {
+    $v = getenv($name);
+    if ($v !== false && $v !== '') return $v;
+    if (isset($_SERVER[$name]) && $_SERVER[$name] !== '') return $_SERVER[$name];
+    if (isset($_ENV[$name]) && $_ENV[$name] !== '') return $_ENV[$name];
+    return false;
+}
+
+$DB_HOST = env_value('DB_HOST') ?: 'localhost';
+$DB_PORT = env_value('DB_PORT') ?: '3306';
+$DB_NAME = env_value('DB_NAME') ?: 'hostel_agency';
+$DB_USER = env_value('DB_USER') ?: 'root';
+$DB_PASS = env_value('DB_PASS') ?: '';
+$DB_SSL  = env_value('DB_SSL') ?: '0';
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

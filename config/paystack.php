@@ -14,11 +14,21 @@ if (is_file($localCfg)) {
     require_once $localCfg;
 }
 
+if (!function_exists('env_value')) {
+    function env_value($name) {
+        $v = getenv($name);
+        if ($v !== false && $v !== '') return $v;
+        if (isset($_SERVER[$name]) && $_SERVER[$name] !== '') return $_SERVER[$name];
+        if (isset($_ENV[$name]) && $_ENV[$name] !== '') return $_ENV[$name];
+        return false;
+    }
+}
+
 if (!defined('PAYSTACK_PUBLIC_KEY')) {
-    define('PAYSTACK_PUBLIC_KEY', getenv('PAYSTACK_PUBLIC_KEY') ?: '');
+    define('PAYSTACK_PUBLIC_KEY', env_value('PAYSTACK_PUBLIC_KEY') ?: '');
 }
 if (!defined('PAYSTACK_SECRET_KEY')) {
-    define('PAYSTACK_SECRET_KEY', getenv('PAYSTACK_SECRET_KEY') ?: '');
+    define('PAYSTACK_SECRET_KEY', env_value('PAYSTACK_SECRET_KEY') ?: '');
 }
 
 // Currency Paystack should charge in (Paystack Ghana supports GHS)
