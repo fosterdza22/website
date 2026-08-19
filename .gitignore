@@ -1,5 +1,5 @@
 # Local configuration (contains secret API keys - NEVER commit)
-config/paystack.php
+config/paystack.local.php
 
 # User uploads
 assets/uploads/

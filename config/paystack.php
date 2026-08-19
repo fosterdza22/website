@@ -1,19 +1,25 @@
 <?php
 /**
- * Paystack configuration - TEMPLATE / EXAMPLE FILE.
+ * Paystack configuration.
  *
- * THIS FILE IS COMMITTED TO GIT. DO NOT PUT REAL KEYS HERE.
+ * Keys are resolved in this order:
+ *   1. config/paystack.local.php   (gitignored - use for local development)
+ *   2. Environment variables PAYSTACK_PUBLIC_KEY / PAYSTACK_SECRET_KEY
+ *      (set these in Railway Dashboard / your host)
  *
- * To use this project locally:
- *   1. Copy this file to config/paystack.php
- *   2. Get your keys from https://dashboard.paystack.com/#/settings/developer
- *   3. Replace the placeholders with your OWN keys (test keys while
- *      developing, live keys only once you go live).
- *   4. config/paystack.php is gitignored so your real keys are never
- *      committed to the repository.
+ * NEVER commit real secret keys to a public repository.
  */
-define('PAYSTACK_PUBLIC_KEY', 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-define('PAYSTACK_SECRET_KEY', 'sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+$localCfg = __DIR__ . '/paystack.local.php';
+if (is_file($localCfg)) {
+    require_once $localCfg;
+}
+
+if (!defined('PAYSTACK_PUBLIC_KEY')) {
+    define('PAYSTACK_PUBLIC_KEY', getenv('PAYSTACK_PUBLIC_KEY') ?: '');
+}
+if (!defined('PAYSTACK_SECRET_KEY')) {
+    define('PAYSTACK_SECRET_KEY', getenv('PAYSTACK_SECRET_KEY') ?: '');
+}
 
 // Currency Paystack should charge in (Paystack Ghana supports GHS)
 define('PAYSTACK_CURRENCY', 'GHS');

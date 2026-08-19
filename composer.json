@@ -1,0 +1,16 @@
+{
+    "name": "hostel-agency/hostel-agency",
+    "description": "Hostel booking and shop platform for university students",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-curl": "*",
+        "ext-gd": "*",
+        "ext-fileinfo": "*",
+        "ext-mbstring": "*",
+        "ext-session": "*"
+    }
+}
