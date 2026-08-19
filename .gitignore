@@ -1,0 +1,15 @@
+# Local configuration (contains secret API keys - NEVER commit)
+config/paystack.php
+
+# User uploads
+assets/uploads/
+
+# Editor / OS files
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
